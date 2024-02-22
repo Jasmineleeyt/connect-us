@@ -46,13 +46,13 @@ const thoughtSchema = new Schema(
         },
         username: {
             type: String,
-            requried: true,
+            required: true,
         },
         reactions: [reactionSchema],
     },
 );
 
-// Initialize though model
+// Initialize thought model
 const Thought = model ('thought', thoughtSchema);
 
 model.exports = Thought;
