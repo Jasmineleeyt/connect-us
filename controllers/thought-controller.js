@@ -16,7 +16,6 @@ module.exports = {
     async readAThought(req, res) {
         try {
             const thought = await Thought.findOne({ _id: req.params.thoughtId })
-            .select('-__v');
             
             if (!thought) {
                 return res.status(404).json({ message: 'Unable to find the thought with the ID provided.'});
@@ -33,7 +32,7 @@ module.exports = {
             const thought = await Thought.create(req.body);
             const user = await User.findOneAndUpdate(
                 { username: req.body.username },
-                { $addToSet: { thoughts: thought.id } },
+                { $push: { thoughts: thought._id } },
                 { new: true }
             ) 
             if (!user) {
