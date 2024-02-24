@@ -22,11 +22,11 @@ const reactionSchema = new Schema (
             type: Date,
             default: Date.now,
             get: (dateTime) => {
-                return dayjs(dateTime).format(`YYYY-MM-DD at hh:mma`);
+                return dayjs(dateTime).format(`YYYY-MM-DD [at] hh:mma`);
             },
         },
     }
-)
+);
 
 // Schema to create thought model
 const thoughtSchema = new Schema(
@@ -41,7 +41,7 @@ const thoughtSchema = new Schema(
             type: Date,
             default: Date.now,
             get: (dateTime) => {
-                return dayjs(dateTime).format(`YYYY-MM-DD at hh:mma`);
+                return dayjs(dateTime).format(`YYYY-MM-DD [at] hh:mma`);
             },
         },
         username: {
