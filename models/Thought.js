@@ -67,6 +67,6 @@ thoughtSchema.virtual('reactionCount').get(function () {
 
 
 // Initialize thought model
-const Thought = model ('thought', thoughtSchema);
+const Thought = model ('Thought', thoughtSchema);
 
 model.exports = Thought;
