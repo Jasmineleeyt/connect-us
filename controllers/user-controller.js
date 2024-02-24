@@ -5,7 +5,7 @@ module.exports = {
     // Get all users
     async getUsers(req, res) {
         try {
-            const users  = await User.find()
+            const users = await User.find()
               .select('-__v')
               .populate('thoughts')
               .populate('friends')
@@ -40,6 +40,7 @@ module.exports = {
             res.json(user);            
         } catch (err) {
             res.status(500).json(err);
+            console.log(err)
         }
     },
     
@@ -104,6 +105,7 @@ module.exports = {
             if (!user) {
                 return res.status(404).json({ message: 'Unable to find the user with the ID provided.' });
             }
+            res.json(user);
         } catch (err) {
             res.status(500).json(err);
         }
