@@ -25,6 +25,14 @@ const reactionSchema = new Schema (
                 return dayjs(dateTime).format(`YYYY-MM-DD [at] hh:mma`);
             },
         },
+    },
+    // Enable virtual
+    {
+        toJSON: {
+            virtuals: true,
+            getters: true,
+        },
+        id: false,
     }
 );
 
@@ -54,7 +62,7 @@ const thoughtSchema = new Schema(
     {
         toJSON: {
             virtuals: true,
-            getters: true
+            getters: true,
         },
         id: false,
     }
