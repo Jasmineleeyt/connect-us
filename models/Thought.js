@@ -1,4 +1,4 @@
-// Import required objects from mongoose library and import dayjs
+// Import required objects from mongoose library and import dayjs to format date
 const { Schema, Types, model } = require('mongoose');
 const dayjs = require('dayjs');
 
@@ -20,13 +20,13 @@ const reactionSchema = new Schema (
         },
         createdAt: {
             type: Date,
-            date: Date.now,
+            default: Date.now,
             get: (dateTime) => {
-                return dayjs(dateTime).format(`YYYY-MM-DD at hh:mma`);
+                return dayjs(dateTime).format(`YYYY-MM-DD [at] hh:mma`);
             },
         },
     }
-)
+);
 
 // Schema to create thought model
 const thoughtSchema = new Schema(
@@ -41,7 +41,7 @@ const thoughtSchema = new Schema(
             type: Date,
             default: Date.now,
             get: (dateTime) => {
-                return dayjs(dateTime).format(`YYYY-MM-DD at hh:mma`);
+                return dayjs(dateTime).format(`YYYY-MM-DD [at] hh:mma`);
             },
         },
         username: {
@@ -50,9 +50,23 @@ const thoughtSchema = new Schema(
         },
         reactions: [reactionSchema],
     },
+    // Enable virtuals
+    {
+        toJSON: {
+            virtuals: true,
+            getters: true
+        },
+        id: false,
+    }
 );
 
-// Initialize thought model
-const Thought = model ('thought', thoughtSchema);
+// Create a virtual property that gets the reaction count
+thoughtSchema.virtual('reactionCount').get(function () {
+    return this.reactions.length;
+})
 
-model.exports = Thought;
+
+// Initialize thought model
+const Thought = model ('Thought', thoughtSchema);
+
+module.exports = Thought;
